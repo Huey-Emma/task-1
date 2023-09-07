@@ -11,7 +11,7 @@ import (
 
 type PersonalInfo struct {
 		SlackName 		string 	   `json:"slack_name"`
-		ExampleName 	string 	   `json:"example_name"`
+		Track           string     `json:"track"`
 		CurrentDay 		string 	   `json:"current_day"`
 		UTCTime 		time.Time  `json:"utc_time"`
 		GithubFileURL 	string 	   `json:"github_file_url"`
@@ -77,11 +77,11 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query() 
 
 		slackname := queryParam(query, "slack_name")
-		exampName := queryParam(query, "example_name")
+		track := queryParam(query, "track")
 
 		checks := []check{
 				{"slack_name", validstring(slackname), "slack_name cannot be blank"},
-				{"example_name", validstring(exampName), "example_name cannot be blank"},
+				{"example_name", validstring(track), "track cannot be blank"},
 		}
 
 		if errs := validate(checks...); errs != nil {
@@ -91,7 +91,7 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 
 		personalInfo := PersonalInfo{
 				SlackName:     slackname,
-				ExampleName:   exampName,
+				Track:         track,
 				CurrentDay:    day(time.Now()),
 				UTCTime:       time.Now(),
 				GithubFileURL: "https://github.com/Huey-Emma/task-1/blob/main/main.go",
@@ -104,10 +104,8 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 		mux := http.NewServeMux()
-
 		mux.HandleFunc("/api", infoHandler)
-
-		err := http.ListenAndServe("0.0.0.0:4000", mux)
+		err := http.ListenAndServe("0.0.0.0:8080", mux)
 
 		if err != nil {
 				log.Fatal(err)
