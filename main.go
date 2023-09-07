@@ -94,8 +94,8 @@ func infoHandler(w http.ResponseWriter, r *http.Request) {
 				ExampleName:   exampName,
 				CurrentDay:    day(time.Now()),
 				UTCTime:       time.Now(),
-				GithubFileURL: "github.com/huey-emma/",
-				GithubRepoURL: "github.com/huey-emma/",
+				GithubFileURL: "https://github.com/Huey-Emma/task-1/blob/main/main.go",
+				GithubRepoURL: "https://github.com/Huey-Emma/task-1",
 				StatusCode:    http.StatusOK,
 		}
 
